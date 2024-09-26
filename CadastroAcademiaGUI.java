@@ -1,3 +1,30 @@
+/**
+ * A classe CadastroAcademiaGUI é responsável por criar a interface gráfica do sistema de cadastro de uma academia.
+ * Ela permite cadastrar unidades, alunos e professores, além de consultar informações sobre as unidades cadastradas.
+ * 
+ * Funcionalidades:
+ * - Cadastrar Unidade: Permite cadastrar uma nova unidade informando o endereço e o nome fantasia.
+ * - Cadastrar Aluno: Permite cadastrar um novo aluno informando o nome, idade e a unidade.
+ * - Cadastrar Professor: Permite cadastrar um novo professor informando o nome, especialidade e a unidade.
+ * - Listar Unidades: Exibe uma lista de todas as unidades cadastradas.
+ * - Consultar Alunos de uma Unidade: Exibe uma lista de alunos de uma unidade específica.
+ * - Consultar Professores de uma Unidade: Exibe uma lista de professores de uma unidade específica.
+ * - Consultar Informações de uma Unidade: Exibe informações detalhadas de uma unidade específica.
+ * - Consultar Todas as Unidades: Exibe uma lista de todas as unidades cadastradas.
+ * 
+ * A interface gráfica é construída utilizando a biblioteca Swing, com uma janela principal contendo botões para cada funcionalidade.
+ * 
+ * Atributos:
+ * - sistema: Instância da classe SistemaCadastro que gerencia os dados do sistema.
+ * 
+ * Métodos:
+ * - CadastroAcademiaGUI(): Construtor da classe que inicializa o sistema e cria a interface gráfica.
+ * - criarInterface(): Método privado que configura a interface gráfica e adiciona os botões e suas respectivas ações.
+ * 
+ * Método Main:
+ * - main(String[] args): Método principal que inicia a aplicação utilizando SwingUtilities.invokeLater.
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +39,7 @@ public class CadastroAcademiaGUI {
     }
 
     private void criarInterface() {
-        JFrame frame = new JFrame("Sistema de Cadastro - Academia");
+        JFrame frame = new JFrame("Sua Academia");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setLayout(new FlowLayout());
@@ -131,9 +158,22 @@ public class CadastroAcademiaGUI {
 
         // Exibir a janela
         frame.setVisible(true);
-    }
+    // Botão para consultar todas as unidades
+    JButton btnConsultarTodasUnidades = new JButton("Consultar Todas as Unidades");
+    btnConsultarTodasUnidades.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String todasUnidades = sistema.consultarTodasUnidades();
+            JOptionPane.showMessageDialog(frame, todasUnidades, "Todas as Unidades", JOptionPane.INFORMATION_MESSAGE);
+        }
+    });
+    frame.add(btnConsultarTodasUnidades);
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(CadastroAcademiaGUI::new);
-    }
+    // Exibir a janela
+    frame.setVisible(true);
+}
+
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(CadastroAcademiaGUI::new);
+}
 }

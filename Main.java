@@ -1,5 +1,34 @@
+/**
+ * Classe principal do sistema de cadastro de academia.
+ * 
+ * Esta classe contém o método main que inicializa o sistema de cadastro e
+ * permite ao usuário interagir com ele através de um menu no console.
+ * 
+ * Funcionalidades disponíveis:
+ * 1. Cadastrar Unidade: Permite cadastrar uma nova unidade da academia.
+ * 2. Cadastrar Aluno: Permite cadastrar um novo aluno em uma unidade específica.
+ * 3. Cadastrar Professor: Permite cadastrar um novo professor em uma unidade específica.
+ * 4. Consultar Alunos de uma Unidade: Permite consultar todos os alunos cadastrados em uma unidade específica.
+ * 5. Consultar Professores de uma Unidade: Permite consultar todos os professores cadastrados em uma unidade específica.
+ * 6. Consultar Unidades Cadastradas: Lista todas as unidades cadastradas no sistema.
+ * 7. Consultar Informações de uma Unidade: Permite consultar informações detalhadas de uma unidade específica.
+ * 8. Sair: Encerra o sistema.
+ * 
+ * O sistema utiliza a classe Scanner para ler a entrada do usuário e a classe
+ * SistemaCadastro para gerenciar as operações de cadastro e consulta.
+ * 
+ * Exceções tratadas:
+ * - InputMismatchException: Tratada quando o usuário insere um valor não numérico
+ *   ao escolher uma opção do menu.
+ * 
+ * O loop principal continua executando até que o usuário escolha a opção de sair (opção 8).
+ * 
+ * @param args Argumentos da linha de comando (não utilizados).
+ */
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
+
 
 public class Main {
     public static void main(String[] args) {

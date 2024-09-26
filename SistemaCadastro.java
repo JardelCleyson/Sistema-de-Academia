@@ -1,10 +1,32 @@
+/**
+ * A classe SistemaCadastro é responsável pelo gerenciamento de unidades, alunos e professores
+ * em um sistema de cadastro de academia. Ela permite cadastrar novas unidades, alunos e professores,
+ * além de consultar informações detalhadas sobre eles.
+ * 
+ * Atributos:
+ * - unidades: Lista de unidades cadastradas.
+ * - contadorAlunos: Contador para geração de matrículas de alunos.
+ * - contadorProfessores: Contador para geração de matrículas de professores.
+ * 
+ * Métodos:
+ * - SistemaCadastro(): Construtor que inicializa a lista de unidades e os contadores.
+ * - void cadastrarUnidade(String endereco, String nomeFantasia): Cadastra uma nova unidade.
+ * - String listarUnidades(): Lista todas as unidades cadastradas.
+ * - void cadastrarAluno(String nome, int idade, String nomeUnidade): Cadastra um novo aluno em uma unidade específica.
+ * - void cadastrarProfessor(String nome, String especialidade, String nomeUnidade): Cadastra um novo professor em uma unidade específica.
+ * - String consultarAlunos(String nomeUnidade): Consulta alunos cadastrados em uma unidade específica.
+ * - String consultarProfessores(String nomeUnidade): Consulta professores cadastrados em uma unidade específica.
+ * - String consultarInformacoesUnidade(String nomeUnidade): Consulta informações detalhadas de uma unidade específica.
+ * - String consultarTodasUnidades(): Consulta todas as unidades cadastradas, incluindo seus alunos e professores.
+ * - String gerarMatriculaAluno(): Gera uma matrícula para um novo aluno.
+ * - String gerarMatriculaProfessor(): Gera uma matrícula para um novo professor.
+ * - Unidade encontrarUnidade(String nomeFantasia): Encontra uma unidade pelo nome fantasia.
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Classe responsável pelo sistema de cadastro da academia.
- * Permite cadastrar unidades, alunos e professores, além de consultar informações.
- */
+
 public class SistemaCadastro {
     private List<Unidade> unidades;
     private int contadorAlunos; // Contador para matrículas de alunos
@@ -207,4 +229,41 @@ public class SistemaCadastro {
         }
         return null;
     }
+
+/**
+ * Consulta todas as unidades cadastradas, incluindo seus alunos e professores.
+ * @return String com informações de todas as unidades.
+ */
+public String consultarTodasUnidades() {
+    if (unidades.isEmpty()) {
+        return "Nenhuma unidade cadastrada.";
+    } else {
+        StringBuilder sb = new StringBuilder("Todas as unidades cadastradas:\n");
+        for (Unidade unidade : unidades) {
+            sb.append(unidade).append("\n");
+            sb.append("Alunos:\n");
+            List<Aluno> alunos = unidade.getAlunos();
+            if (alunos.isEmpty()) {
+                sb.append("Nenhum aluno cadastrado.\n");
+            } else {
+                for (Aluno aluno : alunos) {
+                    sb.append(aluno).append("\n");
+                }
+            }
+            sb.append("Professores:\n");
+            List<Professor> professores = unidade.getProfessores();
+            if (professores.isEmpty()) {
+                sb.append("Nenhum professor cadastrado.\n");
+            } else {
+                for (Professor professor : professores) {
+                    sb.append(professor).append("\n");
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+}
+
+
 }
