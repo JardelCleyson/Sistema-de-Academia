@@ -23,14 +23,15 @@
  * - Unidade encontrarUnidade(String nomeFantasia): Encontra uma unidade pelo nome fantasia.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Random;
 
-
-public class SistemaCadastro {
+ public class SistemaCadastro {
     private List<Unidade> unidades;
     private int contadorAlunos; // Contador para matrículas de alunos
     private int contadorProfessores; // Contador para matrículas de professores
+    private Random random; // Gerador de números aleatórios
 
     /**
      * Construtor da classe SistemaCadastro. Inicializa a lista de unidades e contadores.
@@ -39,7 +40,46 @@ public class SistemaCadastro {
         unidades = new ArrayList<>();
         contadorAlunos = 1;
         contadorProfessores = 1;
+        random = new Random();
+        inicializarMock(); // Inicializa dados mock
     }
+
+    /**
+     * Inicializa dados mock de unidades, alunos e professores.
+     */
+    private void inicializarMock() {
+        String[] nomesUnidades = {"Academia Fitness", "Gym Power", "Health Club", "FitLife", "Body Builders"};
+        String[] nomesAlunos = {"João", "Maria", "Carlos", "Ana", "Pedro", "Luana", "Ricardo", "Mariana", "Felipe", "Clara"};
+        String[] nomesProfessores = {"Dr. Smith", "Prof. Jane", "Prof. Mike", "Prof. Lisa", "Prof. Tom"};
+        String[] especialidades = {"Musculação", "Yoga", "Pilates", "Zumba", "Treinamento Funcional", "Crossfit", "AeroDance", "Boxe"};
+    
+        String[] ruas = {"Rua das Flores", "Avenida Brasil", "Rua da Paz", "Avenida dos Trabalhadores", "Rua do Comércio"};
+        String[] bairros = {"Centro", "Jardim das Acácias", "Parque das Nações", "Vila Nova", "Lagoa Azul"};
+        String[] cidades = {"São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Porto Alegre"};
+    
+        for (String nomeUnidade : nomesUnidades) {
+            String endereco = ruas[random.nextInt(ruas.length)] + ", " + (random.nextInt(100) + 1) + " - " + 
+                              bairros[random.nextInt(bairros.length)] + ", " + 
+                              cidades[random.nextInt(cidades.length)];
+            cadastrarUnidade(endereco, nomeUnidade);
+            
+            int numAlunos = random.nextInt(6) + 5; // Gera de 5 a 10 alunos
+            int numProfessores = random.nextInt(3) + 1; // Gera de 1 a 3 professores
+            
+            for (int i = 0; i < numAlunos; i++) {
+                String alunoNome = nomesAlunos[random.nextInt(nomesAlunos.length)];
+                int idade = random.nextInt(30) + 18; // Idade entre 18 e 47
+                cadastrarAluno(alunoNome, idade, nomeUnidade);
+            }
+            
+            for (int i = 0; i < numProfessores; i++) {
+                String professorNome = nomesProfessores[random.nextInt(nomesProfessores.length)];
+                String especialidade = especialidades[random.nextInt(especialidades.length)];
+                cadastrarProfessor(professorNome, especialidade, nomeUnidade);
+            }
+        }
+    }
+    
 
     /**
      * Cadastra uma nova unidade.

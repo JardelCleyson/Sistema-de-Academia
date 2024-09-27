@@ -1,3 +1,8 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * A classe CadastroAcademiaGUI é responsável por criar a interface gráfica do sistema de cadastro de uma academia.
  * Ela permite cadastrar unidades, alunos e professores, além de consultar informações sobre as unidades cadastradas.
@@ -25,23 +30,18 @@
  * - main(String[] args): Método principal que inicia a aplicação utilizando SwingUtilities.invokeLater.
  */
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class CadastroAcademiaGUI {
     private SistemaCadastro sistema;
 
     public CadastroAcademiaGUI() {
-        sistema = new SistemaCadastro();
+        sistema = new SistemaCadastro(); // Inicializa o sistema com dados mock
         criarInterface();
     }
 
     private void criarInterface() {
-        JFrame frame = new JFrame("Sua Academia");
+        JFrame frame = new JFrame("Sistema de Cadastro - Academia");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(400, 500);
         frame.setLayout(new FlowLayout());
 
         // Botão para cadastrar unidade
@@ -156,24 +156,26 @@ public class CadastroAcademiaGUI {
         });
         frame.add(btnConsultarInformacoes);
 
+        // Botão para consultar todas as unidades com JScrollPane
+        JButton btnConsultarTodasUnidades = new JButton("Consultar Todas as Unidades");
+        btnConsultarTodasUnidades.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String todasUnidades = sistema.consultarTodasUnidades();
+                JTextArea textArea = new JTextArea(todasUnidades);
+                textArea.setEditable(false);
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                scrollPane.setPreferredSize(new Dimension(350, 300)); // Ajuste o tamanho conforme necessário
+                JOptionPane.showMessageDialog(frame, scrollPane, "Todas as Unidades", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        frame.add(btnConsultarTodasUnidades);
+
         // Exibir a janela
         frame.setVisible(true);
-    // Botão para consultar todas as unidades
-    JButton btnConsultarTodasUnidades = new JButton("Consultar Todas as Unidades");
-    btnConsultarTodasUnidades.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String todasUnidades = sistema.consultarTodasUnidades();
-            JOptionPane.showMessageDialog(frame, todasUnidades, "Todas as Unidades", JOptionPane.INFORMATION_MESSAGE);
-        }
-    });
-    frame.add(btnConsultarTodasUnidades);
+    }
 
-    // Exibir a janela
-    frame.setVisible(true);
-}
-
-public static void main(String[] args) {
-    SwingUtilities.invokeLater(CadastroAcademiaGUI::new);
-}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(CadastroAcademiaGUI::new);
+    }
 }
